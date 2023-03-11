@@ -1,0 +1,5 @@
+lofi.txt
+.vscode
+.git
+src/__pycache__
+src/pages/__pycache__
