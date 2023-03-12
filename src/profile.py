@@ -42,7 +42,7 @@ def add_item(name: str, count: int):
             inventory[item] += count
             break
     else:
-        inventory[item] = count
+        inventory[name] = count
     print(f"[INVENTORY] You picked up {count}x {item_icons[name]} {name}.")
 
 def remove_item(name: str, count: int):

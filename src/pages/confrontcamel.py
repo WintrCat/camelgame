@@ -2,6 +2,8 @@ import src.game as game
 
 import src.profile as Profile
 
+import src.pages.inventory as inventory
+
 def with_camel_image(fn):
     def wrapper():
         game.print_seperator()
@@ -104,4 +106,6 @@ def display6():
     game.print_dialogue("\n[2] Open Inventory")
 
 def receive(inp: str):
-    pass
+    if inp == "2":
+        game.set_return_page(display6, receive)
+        game.set_page(inventory.display, inventory.receive)

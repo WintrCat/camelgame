@@ -55,8 +55,9 @@ def display():
     game.print_seperator()
 
     inv = Profile.get_inventory()
-    for item, count, i in zip(inv.keys(), inv.values(), range(length := len(inv))):
-        print(f"[{i}] {count}x {item}")
+    length = len(inv)
+    for item, count, i in zip(inv.keys(), inv.values(), range(length)):
+        print(f"[{i + 1}] {count}x {item}")
     item_count = length
     if is_empty := (length == 0): print("It's kind of empty in here...")
 
@@ -67,51 +68,52 @@ def display():
     print(f"[{1 if is_empty else 3}] Close")
 
 def receive(inp: str):
+    global item_count
     if inp == ("3" if item_count > 0 else "1"):
         return_page = game.get_return_page()
         game.set_page(return_page.get("display"), return_page.get("receiver"))
-    if inp == "1":
-        game.print_seperator()
-        print("Enter the index of the item you want to use")
-        item_index = input("> ")
-        try:
-            item_index = int(item_index)
-            if item_index >= item_count or item_index < 0: raise RuntimeError()
-        except:
-            print("That is an invalid item index...")
+    elif item_count > 0:
+        if inp == "1":
+            game.print_seperator()
+            print("Enter the index of the item you want to use")
+            item_index = input("> ")
+            try:
+                item_index = int(item_index)
+                if item_index > item_count or item_index < 1: raise RuntimeError()
+            except:
+                print("That is an invalid item index...")
+                game.adjusted_sleep(1.5)
+                return
+            
+            inv = list(Profile.get_inventory().keys())
+            print(f"Using a {inv[item_index - 1]}...")
             game.adjusted_sleep(1.5)
-            return
-        
-        inv = Profile.get_inventory().keys()
-        print(f"Using a {inv[item_index - 1]}...")
-        game.adjusted_sleep(1.5)
-    elif inp == "2":
-        game.print_seperator()
-        print("Enter the index of the item you want to trash")
-        item_index = input("> ")
-        try:
-            item_index = int(item_index)
-            if item_index >= item_count or item_index < 0: raise RuntimeError()
-        except:
-            print("That is an invalid item index...")
-            game.adjusted_sleep(1.5)
-            return
-        
-        game.print_seperator()
-        print("Enter how many items you want to trash...")
-        count = input("> ")
-        try:
-            count = int(count)
-            inv = Profile.get_inventory().keys()
-            if count < 0:
-                print("You can't enter a negative amount...")
-                raise RuntimeError()
-            elif count > inv[item_index - 1]:
-                print("You don't have enough of that item to trash...")
-                raise RuntimeError()
-        except:
-            game.adjusted_sleep(1.5)
-            return
-        
-        inv = Profile.get_inventory().keys()
-        inv[item_index - 1]
+        elif inp == "2":
+            game.print_seperator()
+            print("Enter the index of the item you want to trash")
+            item_index = input("> ")
+            try:
+                item_index = int(item_index)
+                if item_index > item_count or item_index < 1: raise RuntimeError()
+            except:
+                print("That is an invalid item index...")
+                game.adjusted_sleep(1.5)
+                return
+            
+            game.print_seperator()
+            print("Enter how many items you want to trash...")
+            count = input("> ")
+            try:
+                count = int(count)
+                inv = list(Profile.get_inventory().keys())
+                if count < 0:
+                    print("You can't enter a negative amount...")
+                    raise RuntimeError()
+                elif count > inv[item_index - 1]:
+                    print("You don't have enough of that item to trash...")
+                    raise RuntimeError()
+            except:
+                game.adjusted_sleep(1.5)
+                return
+            
+            Profile.remove_item(inv[item_index - 1], count)
