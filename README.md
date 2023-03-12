@@ -1,5 +1,6 @@
-<h1><b>Camelgame</b></h1>
+# **Camelgame** v0.1
 
+<br>
 A text-based RPG / adventure game about a camel and a journey. Play the game to find out what happens!
 
 The game is written in Python
@@ -8,7 +9,7 @@ The game can be played with just a terminal and Python interpreter
 <br>
 No additional Python packages from PIP are required
 <br>
-The game is less than 50 kilobytes in size
+The game is less than a megabyte in size
 
 <h3><b>Running the game</b></h3>
 <ul>
@@ -16,6 +17,9 @@ The game is less than 50 kilobytes in size
     <li>Use the <code>cd</code> command to enter the camelgame directory</li>
     <li>Run the camel.py file using <code>python camel.py</code></li>
 </ul>
+
+<h3><b>Changelog</b></h3>
+v0.1 - Release
 
 <h3><b>Credits</b></h3>
 Programmer - WintrCat
