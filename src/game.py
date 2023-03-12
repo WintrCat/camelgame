@@ -66,5 +66,6 @@ art = {
 	"about_camel_banner": open("assets/about.txt", "r").read(),
 	"wake": open("assets/wake.txt", "r").read(),
 	"confront_camel": open("assets/confrontcamel.txt", "r").read(),
-	"desert": open("assets/desert.txt", "r").read()
+	"desert": open("assets/desert.txt", "r").read(),
+	"water_bottle": open("assets/waterbottle.txt", "r").read()
 }

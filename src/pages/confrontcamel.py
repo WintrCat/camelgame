@@ -98,7 +98,12 @@ def display6():
     game.adjusted_sleep(2)
     game.print_dialogue("Camel: Please, take some water.")
     input("\nPress any key to take the water.")
-    print()
+    game.clear()
+    display7()
+
+@game.wrap_seperators
+def display7():
+    print(game.art.get("water_bottle") + "\n")
     Profile.add_item("Water Bottle", 1)
     game.print_seperator()
     game.print_dialogue("What do you want to do?")
@@ -107,5 +112,5 @@ def display6():
 
 def receive(inp: str):
     if inp == "2":
-        game.set_return_page(display6, receive)
+        game.set_return_page(display7, receive)
         game.set_page(inventory.display, inventory.receive)

@@ -57,7 +57,7 @@ def display():
     inv = Profile.get_inventory()
     length = len(inv)
     for item, count, i in zip(inv.keys(), inv.values(), range(length)):
-        print(f"[{i + 1}] {count}x {item}")
+        print(f"[{i + 1}] {count}x {Profile.item_icons[item]} {item}")
     item_count = length
     if is_empty := (length == 0): print("It's kind of empty in here...")
 
@@ -85,6 +85,7 @@ def receive(inp: str):
                 game.adjusted_sleep(1.5)
                 return
             
+            # implement actual use code later; see profile.py > use_item(name: str)
             inv = list(Profile.get_inventory().keys())
             print(f"Using a {inv[item_index - 1]}...")
             game.adjusted_sleep(1.5)
@@ -100,20 +101,22 @@ def receive(inp: str):
                 game.adjusted_sleep(1.5)
                 return
             
-            game.print_seperator()
             print("Enter how many items you want to trash...")
             count = input("> ")
             try:
                 count = int(count)
-                inv = list(Profile.get_inventory().keys())
+                inv = Profile.get_inventory()
+                item_name = list(inv.keys())[item_index - 1]
                 if count < 0:
                     print("You can't enter a negative amount...")
                     raise RuntimeError()
-                elif count > inv[item_index - 1]:
+                elif count > inv[item_name]:
                     print("You don't have enough of that item to trash...")
                     raise RuntimeError()
             except:
+                print("Inventory operation cancelled.")
                 game.adjusted_sleep(1.5)
                 return
             
-            Profile.remove_item(inv[item_index - 1], count)
+            Profile.remove_item(item_name, count)
+            game.adjusted_sleep(1.5)

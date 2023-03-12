@@ -52,3 +52,8 @@ def remove_item(name: str, count: int):
             if inventory[item] <= 0:
                 inventory.pop(item)
             break
+    print(f"[INVENTORY] You trashed {count}x {item_icons[name]} {name}.")
+
+# implement soon
+def use_item(name: str):
+    pass
