@@ -76,7 +76,7 @@ def receive(inp: str):
         item_index = input("> ")
         try:
             item_index = int(item_index)
-            if item_index >= item_count or item_index < 0: raise ValueError()
+            if item_index >= item_count or item_index < 0: raise RuntimeError()
         except:
             print("That is an invalid item index...")
             game.adjusted_sleep(1.5)
